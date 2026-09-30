@@ -548,3 +548,35 @@ Para entender também como o botão se ligava com o código, fiz um simples trig
 ```
 
 Com esses passos, fecho a semana 5, com o intuito de seguir com os avanços visuais que me permitam ver minhas implementações funcionando!
+
+## Semana 6
+
+### 28/9
+
+- Começando a semana 6, fiz um breve levantamento de arquivos relevantes que valem a pena eu manter registrado em `relevant_files.md`
+
+- Primeiro passo foi mover o botão de choose icon e seu trigger de processamento para o `user_screen` .cpp e .stkgui
+- Simplesmente pois é mais simples e implementável seguir com a escolha do icon assim que o profile estiver meio pronto, assim como o kart color. Dessa forma, posso seguir com o default o pseudo-aleatório já existente, e o usuário vai lá e escolhe outro! Simples assim
+
+- O próximo passo é criar um Dialog `icon_selection_dialog` assim como o `kart_color_slider_dialog`, para isso, preciso entender um pouco da sintaxe desses modais, e depois ligar a escolha do icone com um método que seta isso no player profile!
+
+### 29/9
+
+- Para começar o dia, fiz um simples teste de integração:
+  - Basicamente, copiei a implementação de `kart_color_slider_dialog` no `icon_selection_dialog`, ajustando as referências, imports e nomenclaturas
+  - A ideia era ver se a integração do novo botão de `Choose Icon` replicava o comportamento do seletor de cor de kart, de forma idêntica mesmo
+  - funcionou!
+
+- O passo seguinte foi fazer um dialog bem boilerplate, com uma implementação mínima, mas agora referente ao verdadeiro IconSelectionDialog
+- Algo que está sendo bem útil nessa implementação, e no qual eu vou me basear muito é o já citado `kart_color_slider_dialog`, pois vai seguir uma lógica muito parecida, já que ele também pega e salva um dado em um PlayerProfile, meio caminho dessa implementação eu posso puxar dele!
+
+- Fiz meu primeiro commit na minha branch XD, pois é algo bem seguro e que abre esaço pro resto da minha implementação
+  - `data/gui/dialogs/icon_selection_dialog.stkgui`
+  - `data/gui/screens/user_screen.stkgui`
+  - `.../dialogs/icon_selection_dialog.cpp`
+  - `.../dialogs/icon_selection_dialog.hpp`
+  - `src/states_screens/options/user_screen.cpp`
+
+  -  É basicamente o que eu comentei acima (título e descrição do commit abaixo):
+    -  Add 'Choose Icon' button to user screen
+    -  The button triggers an empty dialog, with a boilerplate dialog (IconSelectionDialog), which will be implemented next

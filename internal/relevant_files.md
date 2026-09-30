@@ -35,3 +35,17 @@
 
     - Estrutura crua do modal em xml, com os elementos e botões de tela
 
+---
+
+--- Criado por mim
+
+- icon_selection_dialog - Dialog de seleção de ícones, muito baseado no kart_color_slider_dialog
+
+- icon_selection_dialog.stkgui
+
+    - Estrutura crua do modal em xml, com os elementos e botões de tela
+
+- icon_selection_dialog.cpp/.hpp
+
+    - Implementação de um dialog (tipo um modal ou popup) em cima da tela de gerenciamento de perfis
+    - Implementa a interação e carregamento do dialog e interação com o PlayerProfile real
