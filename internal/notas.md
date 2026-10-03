@@ -580,3 +580,15 @@ Com esses passos, fecho a semana 5, com o intuito de seguir com os avanços visu
   -  É basicamente o que eu comentei acima (título e descrição do commit abaixo):
     -  Add 'Choose Icon' button to user screen
     -  The button triggers an empty dialog, with a boilerplate dialog (IconSelectionDialog), which will be implemented next
+
+### 1/10
+
+- O foco hoje foi entender como renderizar os ícones de cada personagem, pois justamente o próximo passo para minha implementação é gerar os botões clicáveis e gerar a fiação com o código de persistência da escolha no PlayerProfile
+- Descobri o já esperado:
+  - o ideal é renderizar os ícones dinamicamente, ou seja, para isso preciso de um DynamicRibbonWidget, ou seja, uma caixinha que se expande dinamicamente, perfeito para meu caso 
+  - também encontrei uma implementação parcial já existente em `user_screen.cpp`
+  - mas essa implementação não é em um dialog, e a implementação de um Dialog para uma Screen é um pouco diferente, por isso preciso entender um pouco melhor
+    - como usar um dynamic ribbon reservado para os icons
+    - como integrar com getNumberOfKarts() e getKartById(n) do kart_properties_manager, que vai me prover os IDs dos ícones dos personagens e o caminho do .png de cada ícone
+
+- Deixei um campo DynamicRibbonWidget reservado no meu IconSelectionDialog, mas ainda estou batendo cabeça em como incluir o campo na classe, parece que não é só declarar no hpp e inicializar no construtor o_O
