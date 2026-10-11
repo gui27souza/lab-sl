@@ -98,3 +98,38 @@
     > 
     > The thing is: I cant align the grid at all, i tried playing with the 'x' and 'y', both 'width' and 'height', but that's the best I could get, and I fear that even that I get the right values, it isn't the best way to deal with it, and also can't garantee that it will fit in every screen, I'm worried hardcoding values won't scale right.
     > How would you recommend to properly align it? Thanks in advance!
+
+## 11/10
+
+- Voltando aqui no domingo, registrando também alguns passos que dei na semana, mas esqueci de registrar
+
+- Durante a semana, tentando entender como ligar o botão de ícone gerado dinamicamente ao código para eu adicionar o processamento do mesmo. Nesse processo, me surgiu o questionamento:
+
+    > Pensando em UX, qual seria o formato ideal?
+    > 1. O usuário clicar no ícone, deixando o botão em um estado pré-selecionado, e então o player confirma a seleção com o botão verde de apply
+    > 2. Removo o botão de apply, mantendo apenas o de sair do dialog, e o usuário clica no ícone, já aplicando automaticamente
+
+- Meu feeling como usuário foi que clicar direto fosse mais "ergonômico", então fiz uns ajustes no código pensando que seria a saída ideal; removi o botão de apply por exemplo
+- Porém, fazendo uma análise nos outros dialogs, o modelo comum e padrão do stk é o 1: pré-seleção e confirmação!
+- Então, fiz rollback nas minhas mudanças, a fim de manter o modelo padrão.
+
+- Além disso, não tive retorno ainda sobre o comentário que deixei na issue sobre a melhor forma de centralizar o dynamic ribbon widget.
+
+- Mais tarde no domingo, continuei quebrando a cabeça para tentar fazer o clique do mouse no ícone do grid funcionar e dar um feedback visual (com o OK_BADGE verde) antes do Apply.
+- Passei por um looping bem frustrante:
+  - Ao tentar ler `m_kart_icons->getSelectionIDString(...)` no Apply, a seleção vinha vazia porque ao clicar no Apply o foco do jogador saía da grade e ia pro próprio botão de Apply.
+  - Resolvi guardar a seleção em uma variável membro (`m_selected_kart`).
+  - Mas aí veio o perrengue real: clicar com o mouse físico nos ícones simplesmente NÃO disparava o processamento do clique. Apenas passar o mouse e apertar `Enter` no teclado funcionava e desenhava o selo verde.
+  - Tentei implementar o `DynamicRibbonHoverListener`, mas ele disparava em cascata só de mover o mouse em cima dos ícones (hover), o que não faz sentido nenhum para clique.
+  - Investigando a fundo o código da engine (`src/guiengine/event_handler.cpp`, linha 765), descobri o motivo:
+    ```cpp
+    if (ModalDialog::isADialogActive() && (parent == NULL || parent->m_type != GUIEngine::WTYPE_RIBBON))
+    ```
+    Ou seja, a engine do STK tem uma trava explícita que bloqueia o repasse de cliques de botões que sejam filhos diretos de um `WTYPE_RIBBON` quando estão dentro de um `ModalDialog`!
+  - Basicamente, o `ribbon_grid` / `DynamicRibbonWidget` foi desenhado para telas completas (como a tela de escolha de karts), e não para dialogs modais. Ficar brigando contra a própria arquitetura da engine só traz dor de cabeça e comportamentos imprevisíveis.
+
+- Diante disso, decidi dar um passo para trás e mudar a abordagem para a próxima semana:
+  - Em vez de forçar um `ribbon_grid` dentro do modal, vou migrar para o padrão dos outros dialogs do STK: botões normais (`<icon-button>`) em containers `<div>` nativos.
+  - Como são botões diretos sem estarem encapsulados em linhas de ribbon, a engine não vai barrar os cliques de mouse e o evento vai bater 100% limpo no `processEvent`.
+  - Como vou ter que reformular boa parte dessa abordagem de GUI, decidi deletar minha postagem lá na issue do GitHub, evitando deixar uma dúvida que não vai mais fazer sentido com a nova direção técnica.
+- Por ora, fecho a semana por aqui pois o cansaço mental bateu forte. O importante é que a causa raiz do problema foi identificada e o caminho para a semana 8 está traçado.
