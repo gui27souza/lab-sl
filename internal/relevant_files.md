@@ -37,6 +37,12 @@
 
 ---
 
+- engine.cpp/.hpp
+    - documentação da GUIEngine
+
+---
+
+
 --- Criado por mim
 
 - icon_selection_dialog - Dialog de seleção de ícones, muito baseado no kart_color_slider_dialog

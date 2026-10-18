@@ -1,10 +1,10 @@
 NOW
 
 - Alinhar ícones no icon selection dialog
-- Para não quebrar nada já existente, fazer orquestração de dialog similar ao kart_color_slider
+- Ajustar clique do mouse no dialog
+- Ajustar navegação no grid com setinhas
 
-- usar setIconFromKart do PlayerProfile, similar a cor do kart, para salvar em definitivo no perfil
-
+- Atualizar user_screen depois de selecionar um novo ícone
 
 ---
 NEXT
