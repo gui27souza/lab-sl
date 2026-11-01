@@ -60,3 +60,33 @@
 - Explorando a classe tabbed, não consigo encontrar o motivo, já que ela literalmente chama por tabela o método de atualização...
 
 - kkk testando melhor, o apply não funcionou com o clique do mouse simplesmente por estar fora do grid, mas com o enter, funcionou perfeitamente!! kkk
+
+## 1/11
+
+- Hoje dei 2 passos:
+    - Adicionar o botão de upload no icon choose dialog, sem funcionalidade ainda
+    - Brincar e tentar centralizar a força o ribbon_grid no dialog
+- Fiz isso pois sigo sem retorno no Draft PR
+
+- Sobre o botão de upload, coisa simples, só adicionei no .stkgui
+
+```XML
+<buttonbar id="buttons" height="20%" width="40%" align="center">
+    <!-- AQUI! -->
+    <icon-button id="upload" width="128" height="128" icon="gui/icons/blue_plus.png"
+        I18N="In the icon chooser dialog" text="Upload" align="center"/>
+    <icon-button id="cancel" width="128" height="128" icon="gui/icons/red_x.png"
+        I18N="In the icon chooser dialog" text="Cancel" align="center"/>
+    <icon-button id="apply" width="128" height="128" icon="gui/icons/green_check.png"
+        I18N="In the icon chooser dialog" text="Apply" align="center"/>
+</buttonbar>
+```
+
+- Sobre a tentativa de centralização do ribbon_grid, literalmente fiquei alterarndo valores e adicionando atributos até centralizar.
+- O problema claro que ainda segue é que o clique com mouse e navegação pelo teclado seguem não funcionais.
+
+- Por enquanto, o dialog está assim:
+
+<p align="center">
+    <img width="40%" src="../img/1-11-26/partial_dialog.png">
+</p>
