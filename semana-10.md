@@ -74,12 +74,26 @@ Analisando a classe `TabbedUserScreen`, basicamente ela herda todo o comportamen
 
 Portanto, ao clicar no `Choose Icon`, todo o comportamento que eu havia programado funciona igualzinho ao da outra tela! Em relação a isso, não precisei alterar mais nada!
 
+Com essa parte validada, realizei o commit da alteração (`add choose icon option to tabbed user screen`) e deixei um breve comentário de atualização lá no [Draft PR](https://github.com/supertuxkart/stk-code/pull/5907), avisando que a funcionalidade agora também está disponível na tela de configurações e mantendo a discussão ativa com os mantenedores.
 
 <p align="center">
     <img width="60%" src="./img/29-10-26/screen_tab_choose_icon.png">
 </p>
 
 Porém sigo com os problemas de renderização e cliques, mas com o enter, funciona assim como na outra tela!
+
+## Alinhamento manual do ribbon_grid
+
+Como ainda não tive retorno do pessoal do repositório, comecei a brincar e tentar centralizar a força o ribbon_grid no dialog, a fim de forçar a centralização. Sei que não é ideal, mas é uma solução parcial até eu ter uma resposta.
+
+- Literalmente fiquei alterando valores e adicionando atributos até centralizar.
+- O problema claro que ainda segue é que o clique com mouse e navegação pelo teclado seguem não funcionais.
+
+Deixei um [followup lá no Draft PR](https://github.com/supertuxkart/stk-code/pull/5907#issuecomment-6563474000):
+
+> Another update here: I manually aligned the ribbon_grid in the last commit <br>
+> I still don't believe that's the right way, because the keyboard navigation and mouse click still doesn't work. <br>
+> Still waiting for some help here, thanks in advance! XD
 
 ## Planejamento da segunda contribuição
 
@@ -102,3 +116,27 @@ Para não ficar parado, iniciei o planejamento da segunda contribuição, que se
     - file_manager para checar se o arquivo existe e cópia do mesmo
     - StringUtils para validar a extensão do arquivo
     - irr_driver para checagem do arquivo e proporção
+
+O primeiro passo prático que dei aqui foi abrir uma nova branch `feat/1771-upload-icon`, pra ficar organizado e não entrelaçar as coisas, e adicionei um botão de upload no `.stkgui` do dialog
+
+```XML
+<buttonbar id="buttons" height="20%" width="40%" align="center">
+    <!-- AQUI! -->
+    <icon-button id="upload" width="128" height="128" icon="gui/icons/blue_plus.png"
+        I18N="In the icon chooser dialog" text="Upload" align="center"/>
+    <icon-button id="cancel" width="128" height="128" icon="gui/icons/red_x.png"
+        I18N="In the icon chooser dialog" text="Cancel" align="center"/>
+    <icon-button id="apply" width="128" height="128" icon="gui/icons/green_check.png"
+        I18N="In the icon chooser dialog" text="Apply" align="center"/>
+</buttonbar>
+```
+
+## Resultado do fim da semana
+
+- Portanto, ao fim dessa semana, esse é o Dialog que temos até então:
+
+<p align="center">
+    <img width="50%" src="./img/1-11-26/partial_dialog.png">
+</p>
+
+Sigo no aguardo de um retorno do pessoal do repositório e dando os passos para a segunda contribuição!
